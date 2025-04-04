@@ -4,7 +4,17 @@ import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
 import Landing from './components/landing/Landing';
 import User from './components/user/user';
+import Profile from './components/user/Profile';
 import './App.css';
+
+// Protected Route Component
+function ProtectedRoute({ children }) {
+  const user = localStorage.getItem('user');
+  if (!user) {
+    return <Navigate to="/signin" replace />;
+  }
+  return children;
+}
 
 /**
  * ThemeToggle Component
@@ -56,7 +66,16 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/" element={<Landing />} />
-            <Route path="/user" element={<User />} />
+            <Route path="/user" element={
+              <ProtectedRoute>
+                <User />
+              </ProtectedRoute>
+            } />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

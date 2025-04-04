@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiCalendar, FiUser, FiMenu, FiX, FiDownload, FiEye } from 'react-icons/fi';
+import { FiCalendar, FiUser, FiMenu, FiX, FiDownload, FiEye, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 import { Document, Page, pdfjs } from 'react-pdf';
 import './user.css';
+import ModeratorRequest from './demand';
 
 // Configuration du worker PDF
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -93,6 +94,7 @@ function User() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedPdf, setSelectedPdf] = useState(null);
+  const user = JSON.parse(localStorage.getItem('user')) || {};
 
   // Gérer le scroll pour la navbar
   useEffect(() => {
@@ -129,7 +131,7 @@ function User() {
       {/* Navigation */}
       <nav className={`nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
-          <Link to="/" className="nav-logo">
+          <Link to="/user" className="nav-logo">
             ResearchConnect
           </Link>
           <button className="mobile-menu-button" onClick={toggleMobileMenu} aria-label="Toggle menu">
@@ -137,8 +139,15 @@ function User() {
           </button>
           <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
             <Link to="/user" className="nav-link">Articles</Link>
-            <Link to="/profile" className="nav-link">Profile</Link>
-            <Link to="/" className="nav-button primary">Déconnexion</Link>
+            <div className="user-info">
+              <Link to="/profile" className="nav-link">
+                <FiUser className="user-icon" />
+                {user.firstName} {user.lastName}
+              </Link>
+            </div>
+            <Link to="/" className="nav-button primary" onClick={() => localStorage.removeItem('user')}>
+              Déconnexion
+            </Link>
           </div>
         </div>
       </nav>
@@ -190,19 +199,14 @@ function User() {
                   </span>
                 </div>
                 <div className="article-actions">
-                  <button 
-                    className="action-button view"
-                    onClick={() => setSelectedPdf(article.pdfUrl)}
-                  >
-                    <FiEye /> Voir le PDF
-                  </button>
+                 
                   <a 
                     href={article.pdfUrl} 
                     className="action-button download"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FiDownload /> Voir le PDF
+                    <FiEye /> Voir le PDF
                   </a>
                 </div>
               </article>
@@ -218,6 +222,39 @@ function User() {
           onClose={() => setSelectedPdf(null)}
         />
       )}
+
+      {/* Bouton pour devenir modérateur */}
+      <ModeratorRequest />
+
+      {/* Footer */}
+      <footer className="user-footer">
+        <div className="footer-content">
+          <div className="footer-section">
+            <h3>À propos</h3>
+            <p>ResearchConnect est une plateforme dédiée au partage et à la collaboration dans le domaine de la recherche académique.</p>
+          </div>
+          <div className="footer-section">
+            <h3>Contact</h3>
+            <div className="contact-info">
+              <span><FiMail /> contact@researchconnect.com</span>
+              <span><FiPhone /> +216 XX XXX XXX</span>
+              <span><FiMapPin /> Tunis, Tunisie</span>
+            </div>
+          </div>
+          <div className="footer-section">
+            <h3>Liens rapides</h3>
+            <div className="quick-links">
+              <Link to="/user">Articles</Link>
+              <Link to="/profile">Mon Profil</Link>
+              <a href="#">Politique de confidentialité</a>
+              <a href="#">Conditions d'utilisation</a>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} ResearchConnect. Tous droits réservés.</p>
+        </div>
+      </footer>
     </div>
   );
 }

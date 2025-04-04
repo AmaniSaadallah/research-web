@@ -18,7 +18,19 @@ function SignIn() {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Sign in:', { email, password });
+    // Simulate a successful login with user data
+    const userData = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: email,
+      joinDate: new Date().toISOString(),
+      interests: ['Intelligence Artificielle', 'NLP', 'Cybersécurité']
+    };
+    
+    // Save user data
+    localStorage.setItem('user', JSON.stringify(userData));
+    
+    // Redirect to user page
     navigate('/user');
   };
 
