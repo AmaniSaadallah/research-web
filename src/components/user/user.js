@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
 import { FiCalendar, FiUser, FiMenu, FiX, FiEye, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
-=======
-import { FiCalendar, FiUser, FiMenu, FiX,  FiEye, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
->>>>>>> 1ac44416d8b658290efca3cf3bcc290e3d21c6ce
 import { Document, Page, pdfjs } from 'react-pdf';
 import './user.css';
 import ModeratorRequest from './demand';
@@ -144,6 +140,11 @@ function User() {
           <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
             <Link to="/user" className="nav-link">Articles</Link>
             <Link to="/researchers" className="nav-link">Chercheurs</Link>
+            {user.role === 'admin' && (
+              <Link to="/admin/" className="nav-link admin-link">
+                Admin Dashboard
+              </Link>
+            )}
             <div className="user-info">
               <Link to="/profile" className="nav-link">
                 <FiUser className="user-icon" />

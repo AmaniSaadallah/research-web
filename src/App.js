@@ -6,13 +6,17 @@ import Landing from './components/landing/Landing';
 import User from './components/user/user';
 import Profile from './components/user/Profile';
 import ResearchersList from './components/user/ResearchersList';
+import AdminDashboard from './components/admin/AdminDashboard';
 import './App.css';
 
-// Protected Route Component
-function ProtectedRoute({ children }) {
-  const user = localStorage.getItem('user');
+// Protected Route Component with role check
+function ProtectedRoute({ children, requiredRole }) {
+  const user = JSON.parse(localStorage.getItem('user'));
   if (!user) {
     return <Navigate to="/signin" replace />;
+  }
+  if (requiredRole && user.role !== requiredRole) {
+    return <Navigate to="/user" replace />;
   }
   return children;
 }
@@ -80,6 +84,11 @@ function App() {
             <Route path="/researchers" element={
               <ProtectedRoute>
                 <ResearchersList />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/*" element={
+              <ProtectedRoute requiredRole="admin">
+                <AdminDashboard />
               </ProtectedRoute>
             } />
             <Route path="*" element={<Navigate to="/" replace />} />

@@ -18,20 +18,25 @@ function SignIn() {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate a successful login with user data
+    
+    // Demo admin credentials check
+    const isAdmin = email === 'admin@example.com' && password === 'admin123';
+    
+    // Create user data with appropriate role
     const userData = {
-      firstName: 'John',
-      lastName: 'Doe',
+      firstName: isAdmin ? 'Admin' : 'User',
+      lastName: isAdmin ? 'System' : 'Demo',
       email: email,
+      role: isAdmin ? 'admin' : 'user', // Set role based on credentials
       joinDate: new Date().toISOString(),
       interests: ['Artificial Intelligence', 'Natural Language Processing', 'Cybersecurity']
     };
     
-    // Save user data
+    // Save user data to localStorage
     localStorage.setItem('user', JSON.stringify(userData));
     
-    // Redirect to user page
-    navigate('/user');
+    // Redirect based on role
+    navigate(isAdmin ? '/admin' : '/user');
   };
 
   return (
@@ -42,9 +47,11 @@ function SignIn() {
         aria-label="Back to home">
         <FiArrowLeft /> Back to home
       </button>
+
       {/* Header Section */}
       <div className="auth-header">
         <h1 className="auth-title">Welcome Back</h1>
+        <p className="auth-subtitle">Sign in to continue</p>
       </div>
 
       {/* Auth Card */}
@@ -52,9 +59,7 @@ function SignIn() {
         <form onSubmit={handleSubmit} className="auth-form">
           {/* Email Input */}
           <div className="input-group">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
+            <label htmlFor="email" className="form-label">Email</label>
             <input
               id="email"
               type="email"
@@ -68,9 +73,7 @@ function SignIn() {
 
           {/* Password Input */}
           <div className="input-group">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
+            <label htmlFor="password" className="form-label">Password</label>
             <input
               id="password"
               type="password"
@@ -87,12 +90,19 @@ function SignIn() {
             Sign in
           </button>
 
+          {/* Demo Admin Credentials Info */}
+          <div className="demo-credentials">
+            <strong>Demo Admin Access:</strong>
+            <br />
+            Email: admin@example.com
+            <br />
+            Password: admin123
+          </div>
+
           {/* Sign Up Link */}
           <p className="auth-link-text">
             Don't have an account?{' '}
-            <Link to="/signup" className="auth-link">
-              Sign up
-            </Link>
+            <Link to="/signup" className="auth-link">Sign up</Link>
           </p>
         </form>
       </div>

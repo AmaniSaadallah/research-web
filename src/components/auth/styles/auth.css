@@ -230,3 +230,20 @@
   background: var(--color-violet);
   color: var(--color-white);
 }
+
+/* Demo Credentials Styles */
+.demo-credentials {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(var(--color-violet-rgb), 0.1);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  text-align: center;
+  line-height: 1.5;
+}
+
+[data-theme="dark"] .demo-credentials {
+  background: rgba(var(--color-violet-rgb), 0.2);
+  color: var(--color-white);
+}
