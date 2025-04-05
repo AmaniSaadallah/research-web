@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiCalendar, FiUser, FiMenu, FiX, FiDownload, FiEye, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
+import { FiCalendar, FiUser, FiMenu, FiX,  FiEye, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 import { Document, Page, pdfjs } from 'react-pdf';
 import './user.css';
 import ModeratorRequest from './demand';
@@ -139,6 +139,7 @@ function User() {
           </button>
           <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
             <Link to="/user" className="nav-link">Articles</Link>
+            <Link to="/researchers" className="nav-link">Chercheurs</Link>
             <div className="user-info">
               <Link to="/profile" className="nav-link">
                 <FiUser className="user-icon" />
