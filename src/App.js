@@ -5,6 +5,7 @@ import SignUp from './components/auth/SignUp';
 import Landing from './components/landing/Landing';
 import User from './components/user/user';
 import Profile from './components/user/Profile';
+import ResearchersList from './components/user/ResearchersList';
 import './App.css';
 
 // Protected Route Component
@@ -74,6 +75,11 @@ function App() {
             <Route path="/profile" element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            } />
+            <Route path="/researchers" element={
+              <ProtectedRoute>
+                <ResearchersList />
               </ProtectedRoute>
             } />
             <Route path="*" element={<Navigate to="/" replace />} />
