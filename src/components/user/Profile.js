@@ -10,7 +10,7 @@ function Profile() {
     email: '',
     password: '',
     joinDate: new Date().toISOString(),
-    interests: ['Intelligence Artificielle', 'NLP', 'Cybersécurité']
+    interests: ['Artificial Intelligence', 'NLP', 'Cybersecurity']
   };
 
   const [isEditing, setIsEditing] = useState(false);
@@ -19,13 +19,13 @@ function Profile() {
   const [selectedInterests, setSelectedInterests] = useState(defaultUser.interests);
 
   const availableInterests = [
-    'Intelligence Artificielle',
-    'Traitement du langage naturel (NLP)',
-    'Traitement d\'images',
-    'Cybersécurité',
+    'Artificial Intelligence',
+    'Natural Language Processing (NLP)',
+    'Image Processing',
+    'Cybersecurity',
     'Machine Learning',
     'Deep Learning',
-    'Robotique',
+    'Robotics',
     'Big Data'
   ];
 
@@ -61,7 +61,7 @@ function Profile() {
           <div className="nav-links">
             <Link to="/user" className="nav-link">Articles</Link>
             <Link to="/profile" className="nav-link">Profile</Link>
-            <Link to="/" className="nav-button primary">Déconnexion</Link>
+            <Link to="/" className="nav-button primary">Log out</Link>
           </div>
         </div>
       </nav>
@@ -77,7 +77,7 @@ function Profile() {
             onClick={() => setIsEditing(!isEditing)}
           >
             {isEditing ? <FiX /> : <FiEdit2 />}
-            {isEditing ? 'Annuler' : 'Modifier le profil'}
+            {isEditing ? 'Cancel' : 'Edit Profile'}
           </button>
         </div>
 
@@ -85,7 +85,7 @@ function Profile() {
           {isEditing ? (
             <form onSubmit={handleSubmit} className="edit-form">
               <div className="form-group">
-                <label>Prénom</label>
+                <label>First Name</label>
                 <input
                   type="text"
                   value={userData.firstName}
@@ -95,7 +95,7 @@ function Profile() {
               </div>
 
               <div className="form-group">
-                <label>Nom</label>
+                <label>Last Name</label>
                 <input
                   type="text"
                   value={userData.lastName}
@@ -115,17 +115,17 @@ function Profile() {
               </div>
 
               <div className="form-group">
-                <label>Nouveau mot de passe (laisser vide pour ne pas changer)</label>
+                <label>New Password (leave empty to keep current)</label>
                 <input
                   type="password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="Nouveau mot de passe"
+                  placeholder="New password"
                 />
               </div>
 
               <div className="form-group">
-                <label>Domaines d'intérêt</label>
+                <label>Areas of Interest</label>
                 <div className="interests-grid">
                   {availableInterests.map(interest => (
                     <label key={interest} className="interest-checkbox">
@@ -141,7 +141,7 @@ function Profile() {
               </div>
 
               <button type="submit" className="save-button">
-                <FiCheck /> Sauvegarder les modifications
+                <FiCheck /> Save Changes
               </button>
             </form>
           ) : (
@@ -156,14 +156,14 @@ function Profile() {
               <div className="info-item">
                 <FiCalendar />
                 <div>
-                  <h3>Date d'inscription</h3>
+                  <h3>Join Date</h3>
                   <p>{new Date(userData.joinDate).toLocaleDateString()}</p>
                 </div>
               </div>
               <div className="info-item">
                 <FiBook />
                 <div>
-                  <h3>Domaines d'intérêt</h3>
+                  <h3>Areas of Interest</h3>
                   <div className="interests-tags">
                     {userData.interests.map(interest => (
                       <span key={interest} className="interest-tag">

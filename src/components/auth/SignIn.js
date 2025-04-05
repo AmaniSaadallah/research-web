@@ -24,7 +24,7 @@ function SignIn() {
       lastName: 'Doe',
       email: email,
       joinDate: new Date().toISOString(),
-      interests: ['Intelligence Artificielle', 'NLP', 'Cybersécurité']
+      interests: ['Artificial Intelligence', 'Natural Language Processing', 'Cybersecurity']
     };
     
     // Save user data

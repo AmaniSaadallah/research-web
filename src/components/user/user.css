@@ -1,3 +1,4 @@
+/* Basic container styles */
 .user-container {
   padding-top: var(--nav-height);
   min-height: 100vh;
@@ -90,7 +91,7 @@
   padding: 0.5rem;
 }
 
-/* Style amélioré de la section de recherche */
+/* Enhanced search section styles */
 .search-section {
   background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-violet) 100%);
   padding: 4rem 0;
@@ -189,7 +190,7 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Style amélioré de la section des articles */
+/* Enhanced articles section styles */
 .articles-section {
   padding: 5rem 2rem;
   background: var(--color-bg);
@@ -454,7 +455,7 @@
   }
 }
 
-/* Support du mode sombre */
+/* Dark mode support */
 [data-theme="dark"] {
   .nav {
     background: var(--color-dark);
@@ -541,7 +542,12 @@
   }
 }
 
-/* Design responsive */
+/* Dark mode support for footer - always gradient */
+[data-theme="dark"] .user-footer {
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-violet) 100%);
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
   .mobile-menu-button {
     display: block;
@@ -634,7 +640,7 @@
   }
 }
 
-/* Styles pour l'affichage du nom d'utilisateur dans la navbar */
+/* User info display styles in navbar */
 .user-info {
   display: flex;
   align-items: center;
@@ -744,9 +750,4 @@
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   text-align: center;
   color: white;
-}
-
-/* Dark mode support for footer - no longer needed since footer is always gradient */
-[data-theme="dark"] .user-footer {
-  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-violet) 100%);
 }

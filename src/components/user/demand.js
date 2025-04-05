@@ -15,12 +15,12 @@ function ModeratorRequest() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simuler l'envoi de la demande
+    // Simulate request submission
     setSubmitted(true);
-    // Dans une vraie application, envoyer les données à une API
-    console.log('Demande envoyée:', formData);
+    // In a real application, send data to an API
+    console.log('Request sent:', formData);
     
-    // Réinitialiser le formulaire après 3 secondes
+    // Reset form after 3 seconds
     setTimeout(() => {
       setSubmitted(false);
       setIsModalOpen(false);
@@ -47,7 +47,7 @@ function ModeratorRequest() {
         className="become-moderator-button"
         onClick={() => setIsModalOpen(true)}
       >
-        Devenir Modérateur
+        Become a Moderator
       </button>
 
       {isModalOpen && (
@@ -60,13 +60,13 @@ function ModeratorRequest() {
               <FiX />
             </button>
             
-            <h2 className="modal-title">Demande pour devenir Modérateur</h2>
+            <h2 className="modal-title">Request to Become a Moderator</h2>
             
             {submitted ? (
               <div className="success-message">
                 <FiSend size={40} />
-                <h3>Demande envoyée avec succès!</h3>
-                <p>Nous examinerons votre demande et vous contacterons bientôt.</p>
+                <h3>Request sent successfully!</h3>
+                <p>We will review your request and contact you soon.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="moderator-form">
@@ -80,14 +80,14 @@ function ModeratorRequest() {
                     name="motivation"
                     value={formData.motivation}
                     onChange={handleChange}
-                    placeholder="Expliquez pourquoi vous souhaitez devenir modérateur..."
+                    placeholder="Explain why you want to become a moderator..."
                     required
                   />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="experience">
-                    Expérience en recherche
+                    Research Experience
                     <span className="required">*</span>
                   </label>
                   <textarea
@@ -95,14 +95,14 @@ function ModeratorRequest() {
                     name="experience"
                     value={formData.experience}
                     onChange={handleChange}
-                    placeholder="Décrivez votre expérience en recherche..."
+                    placeholder="Describe your research experience..."
                     required
                   />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="specialization">
-                    Domaine de spécialisation
+                    Area of Specialization
                     <span className="required">*</span>
                   </label>
                   <input
@@ -111,27 +111,27 @@ function ModeratorRequest() {
                     name="specialization"
                     value={formData.specialization}
                     onChange={handleChange}
-                    placeholder="Ex: Intelligence Artificielle, NLP, etc."
+                    placeholder="E.g., Artificial Intelligence, NLP, etc."
                     required
                   />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="publications">
-                    Publications et contributions
+                    Publications and Contributions
                   </label>
                   <textarea
                     id="publications"
                     name="publications"
                     value={formData.publications}
                     onChange={handleChange}
-                    placeholder="Listez vos publications et contributions scientifiques..."
+                    placeholder="List your scientific publications and contributions..."
                   />
                 </div>
 
                 <button type="submit" className="submit-button">
                   <FiSend />
-                  Envoyer la demande
+                  Send Request
                 </button>
               </form>
             )}
