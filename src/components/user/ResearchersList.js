@@ -101,15 +101,15 @@ function ResearchersList() {
         <h1>Researchers Directory</h1>
         
         <div className="researchers-search-section">
-          <div className="search-container">
-            <div className="search-box">
-              <FiSearch className="search-icon" />
+          <div className="researchers-search-container">
+            <div className="researchers-search-box">
+              <FiSearch className="researchers-search-icon" />
               <input
                 type="text"
                 placeholder="Search researchers by name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="search-input"
+                className="researchers-search-input"
               />
             </div>
             <select
