@@ -497,17 +497,29 @@
   .researchers-search-container {
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
   }
 
-  .researchers-search-input,
-  .domain-select {
-    padding: 1rem;
+  .researchers-search-box {
+    width: 100%;
+  }
+
+  .researchers-search-input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
     font-size: 0.95rem;
+  }
+
+  .researchers-search-icon {
+    left: 1rem;
+    font-size: 1rem;
   }
 
   .domain-select {
     width: 100%;
     min-width: unset;
+    padding: 1rem;
+    font-size: 0.95rem;
   }
 
   .researchers-grid {
@@ -583,5 +595,31 @@
 
   .user-footer {
     padding: 3rem 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .researchers-page h1 {
+    font-size: 1.75rem;
+    padding: 0 0.5rem;
+  }
+
+  .researchers-search-section {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .researchers-search-container {
+    padding: 0;
+  }
+
+  .researchers-search-input,
+  .domain-select {
+    padding: 0.875rem;
+    font-size: 0.9rem;
+  }
+
+  .researchers-search-input {
+    padding-left: 2.75rem;
   }
 }
