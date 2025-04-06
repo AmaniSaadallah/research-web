@@ -1,0 +1,67 @@
+/* Main container of the page */
+.about-container {
+  position: relative; /* Position title and image relative to this container */
+  padding: 50px 0; /* Add some space on top and bottom */
+  width: 100%; /* Take full width */
+  text-align: center; /* Center text */
+}
+
+.aboutus-container {
+  padding-top: 300px;  /* Adjust according to navbar height */
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;  /* Make sure it's on top */
+  background-color: #fff;  /* Optional, depending on your design */
+}
+
+
+/* Background Image */
+.about-image {
+  position: absolute; /* Position the image behind the title */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full screen width */
+  height: 50%; /* Set height to half the screen (adjust as needed) */
+  object-fit: cover; /* Make image fill the space without distortion */
+  opacity: 0.3; /* Make image semi-transparent */
+  z-index: -1; /* Place image behind other elements */
+}
+
+/* Main Title */
+.about-title {
+  padding-top: 60px;
+  position: relative; /* Keep title in the foreground */
+  font-size: 3rem; /* Title size */
+  color: var(--color-text); /* Text color depending on theme */
+  z-index: 1; /* Ensure it's above the image */
+  margin-bottom: 20px; /* Space below the title */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Text shadow for visibility */
+}
+
+/* General section with subtitles */
+.about-section {
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+  padding: 30px;
+  margin: 20px auto; /* Space around each section */
+  width: 80%; /* Container width */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+/* Subtitles */
+.about-section h2 {
+  font-size: 2rem; /* Subtitle size */
+  color: var(--color-navy); /* Specific color for subtitles */
+  margin-bottom: 15px; /* Space below subtitle */
+}
+
+.about-section p {
+  font-size: 1.2rem; /* Paragraph text size */
+  color: var(--color-text); /* Text color */
+  line-height: 1.6; /* Line height for readability */
+}
