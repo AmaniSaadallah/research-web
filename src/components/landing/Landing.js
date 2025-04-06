@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { FiSearch, FiUsers, FiBookOpen, FiMenu, FiX } from 'react-icons/fi';
-import Navbar from './Navbar';
+import { FiSearch, FiUsers, FiBookOpen, FiMenu, FiX, FiUser } from 'react-icons/fi';
 import './styles/landing.css';
 
 function Landing() {
@@ -10,12 +9,19 @@ function Landing() {
   const featuresRef = useRef(null);
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Handle scroll for nav
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
+
+    // Get user data
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
 
     // Initialize sections as visible if they're in view
     const initializeVisibility = () => {
@@ -79,8 +85,6 @@ function Landing() {
 
   return (
     <div className="landing">
-      {/* Navigation */}
-      <Navbar />
       <nav className={`nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <Link to="/" className="nav-logo">
@@ -90,10 +94,34 @@ function Landing() {
             {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
           <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
-            <Link to="#features" className="nav-link">Features</Link>
-            <Link to="/about" className="nav-link">About</Link>
-            <Link to="/signin" className="nav-button secondary">Log in</Link>
-            <Link to="/signup" className="nav-button primary">Join for free</Link>
+            <Link to="#features" className="nav-link">Home</Link>
+            {user ? (
+              <>
+                <Link to="/user" className="nav-link">Dashboard</Link>
+                <Link to="/about" className="nav-link">About</Link>
+                <div className="user-info">
+                  <Link to="/profile" className="nav-link">
+                    <FiUser className="user-icon" />
+                    {user.firstName} {user.lastName}
+                  </Link>
+                </div>
+                <Link 
+                  to="/" 
+                  className="nav-button primary"
+                  onClick={() => {
+                    localStorage.removeItem('user');
+                    setUser(null);
+                  }}
+                >
+                  Log out
+                </Link>
+              </>
+            ) : (
+              <><Link to="/about" className="nav-link">About</Link>
+                <Link to="/signin" className="nav-button secondary">Log in</Link>
+                <Link to="/signup" className="nav-button primary">Join for free</Link>
+              </>
+            )}
           </div>
         </div>
       </nav>

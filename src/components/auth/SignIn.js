@@ -19,15 +19,16 @@ function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Demo admin credentials check
+    // Demo credentials check
     const isAdmin = email === 'admin@example.com' && password === 'admin123';
+    const isModerator = email === 'moderator@example.com' && password === 'mod123';
     
     // Create user data with appropriate role
     const userData = {
-      firstName: isAdmin ? 'Admin' : 'User',
-      lastName: isAdmin ? 'System' : 'Demo',
+      firstName: isAdmin ? 'Admin' : (isModerator ? 'Moderator' : 'User'),
+      lastName: isAdmin ? 'System' : (isModerator ? 'Content' : 'Demo'),
       email: email,
-      role: isAdmin ? 'admin' : 'user', // Set role based on credentials
+      role: isAdmin ? 'admin' : (isModerator ? 'moderator' : 'user'), // Set role based on credentials
       joinDate: new Date().toISOString(),
       interests: ['Artificial Intelligence', 'Natural Language Processing', 'Cybersecurity']
     };
@@ -36,7 +37,13 @@ function SignIn() {
     localStorage.setItem('user', JSON.stringify(userData));
     
     // Redirect based on role
-    navigate(isAdmin ? '/admin' : '/user');
+    if (isAdmin) {
+      navigate('/admin');
+    } else if (isModerator) {
+      navigate('/moderator');
+    } else {
+      navigate('/user');
+    }
   };
 
   return (
@@ -90,13 +97,20 @@ function SignIn() {
             Sign in
           </button>
 
-          {/* Demo Admin Credentials Info */}
+          {/* Demo Credentials Info */}
           <div className="demo-credentials">
             <strong>Demo Admin Access:</strong>
             <br />
             Email: admin@example.com
             <br />
             Password: admin123
+            <br />
+            <br />
+            <strong>Demo Moderator Access:</strong>
+            <br />
+            Email: moderator@example.com
+            <br />
+            Password: mod123
           </div>
 
           {/* Sign Up Link */}

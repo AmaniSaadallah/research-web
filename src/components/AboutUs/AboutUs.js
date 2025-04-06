@@ -1,11 +1,62 @@
-import React from 'react';
-import Navbar from '../landing/Navbar';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { FiMenu, FiX, FiUser } from 'react-icons/fi';
 import './AboutUs.css'; 
 
 const AboutUs = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Get user data
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
+
   return (
     <div className="about-container">
-      <Navbar /> 
+      {/* Custom navigation for AboutUs */}
+      <nav className="nav">
+        <div className="nav-container">
+          <Link to="/" className="nav-logo">ResearchConnect</Link>
+          <button className="mobile-menu-button" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu">
+            {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          </button>
+          <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
+            <Link to="/" className="nav-link">Home</Link>
+            {user ? (
+              <>
+                <Link to="/user" className="nav-link">Dashboard</Link>
+                <Link to="/about" className="nav-link">About</Link>
+                <div className="user-info">
+                  <Link to="/profile" className="nav-link">
+                    <FiUser className="user-icon" />
+                    {user.firstName} {user.lastName}
+                  </Link>
+                </div>
+                <Link 
+                  to="/" 
+                  className="nav-button primary"
+                  onClick={() => {
+                    localStorage.removeItem('user');
+                    setUser(null);
+                  }}
+                >
+                  Log out
+                </Link>
+              </>
+            ) : (
+              <><Link to="/about" className="nav-link">About</Link>
+                <Link to="/signin" className="nav-button secondary">Log in</Link>
+                <Link to="/signup" className="nav-button primary">Join for free</Link>
+              </>
+            )}
+          </div>
+        </div>
+      </nav>
+
       {/* Main Title "About Us" */}
       <h1 className="about-title">About Us</h1>
 

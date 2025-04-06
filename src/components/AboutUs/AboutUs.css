@@ -65,3 +65,38 @@
   color: var(--color-text); /* Text color */
   line-height: 1.6; /* Line height for readability */
 }
+
+/* User info styles in navbar */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-info .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(138, 43, 226, 0.1);
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+}
+
+.user-info .nav-link:hover {
+  background: rgba(138, 43, 226, 0.2);
+  transform: translateY(-2px);
+}
+
+.user-icon {
+  font-size: 1.2rem;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .user-info .nav-link {
+  background: rgba(138, 43, 226, 0.2);
+}
+
+[data-theme="dark"] .user-info .nav-link:hover {
+  background: rgba(138, 43, 226, 0.3);
+}

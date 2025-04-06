@@ -82,8 +82,10 @@ function ResearchersList() {
             {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
           <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
-            <Link to="/user" className="nav-link">Articles</Link>
+            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/user" className="nav-link">Dashboard</Link>
             <Link to="/researchers" className="nav-link">Moderators</Link>
+            <Link to="/about" className="nav-link">About</Link>
             <div className="user-info">
               <Link to="/profile" className="nav-link">
                 <FiUser className="user-icon" />

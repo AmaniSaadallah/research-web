@@ -7,6 +7,7 @@ import User from './components/user/user';
 import Profile from './components/user/Profile';
 import ResearchersList from './components/user/ResearchersList';
 import AdminDashboard from './components/admin/AdminDashboard';
+import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AboutUs from './components/AboutUs/AboutUs';
 import './App.css';
 
@@ -91,6 +92,11 @@ function App() {
             <Route path="/admin/*" element={
               <ProtectedRoute requiredRole="admin">
                 <AdminDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/moderator/*" element={
+              <ProtectedRoute requiredRole="moderator">
+                <ModeratorDashboard />
               </ProtectedRoute>
             } />
             <Route path="*" element={<Navigate to="/" replace />} />

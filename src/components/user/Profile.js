@@ -59,8 +59,10 @@ function Profile() {
             ResearchConnect
           </Link>
           <div className="nav-links">
-            <Link to="/user" className="nav-link">Articles</Link>
-            <Link to="/profile" className="nav-link">Profile</Link>
+            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/user" className="nav-link">Dashboard</Link>
+            <Link to="/researchers" className="nav-link">Moderators</Link>
+            <Link to="/about" className="nav-link">About</Link>
             <Link to="/" className="nav-button primary">Log out</Link>
           </div>
         </div>
