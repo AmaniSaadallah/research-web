@@ -139,7 +139,7 @@ function User() {
           </button>
           <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
             <Link to="/user" className="nav-link">Articles</Link>
-            <Link to="/researchers" className="nav-link">Chercheurs</Link>
+            <Link to="/researchers" className="nav-link">Moderators</Link>
             {user.role === 'admin' && (
               <Link to="/admin/" className="nav-link admin-link">
                 Admin Dashboard

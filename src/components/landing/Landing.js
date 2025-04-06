@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiUsers, FiBookOpen, FiMenu, FiX } from 'react-icons/fi';
+import Navbar from './Navbar';
 import './styles/landing.css';
 
 function Landing() {
@@ -79,6 +80,7 @@ function Landing() {
   return (
     <div className="landing">
       {/* Navigation */}
+      <Navbar />
       <nav className={`nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <Link to="/" className="nav-logo">
@@ -89,7 +91,7 @@ function Landing() {
           </button>
           <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
             <Link to="#features" className="nav-link">Features</Link>
-            <Link to="#about" className="nav-link">About</Link>
+            <Link to="/about" className="nav-link">About</Link>
             <Link to="/signin" className="nav-button secondary">Log in</Link>
             <Link to="/signup" className="nav-button primary">Join for free</Link>
           </div>

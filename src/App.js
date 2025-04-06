@@ -7,6 +7,7 @@ import User from './components/user/user';
 import Profile from './components/user/Profile';
 import ResearchersList from './components/user/ResearchersList';
 import AdminDashboard from './components/admin/AdminDashboard';
+import AboutUs from './components/AboutUs/AboutUs';
 import './App.css';
 
 // Protected Route Component with role check
@@ -71,6 +72,7 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<AboutUs />} />
             <Route path="/user" element={
               <ProtectedRoute>
                 <User />

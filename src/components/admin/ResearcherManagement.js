@@ -61,24 +61,114 @@ function ResearcherManagement() {
   );
 
   return (
-    <div className="researcher-management">
-      {/* Search and Add Section */}
+    <div className="management-component">
       <div className="management-header">
-        <div className="search-box">
-          <FiSearch className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search researchers..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+        <h1 className="page-title">Researchers</h1>
+        <div className="header-actions">
+          <div className="search-box">
+            <FiSearch className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search researchers..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <button className="add-button" onClick={() => setShowAddForm(true)}>
+            <FiUserPlus /> Add Researcher
+          </button>
         </div>
-        <button className="add-button" onClick={() => setShowAddForm(true)}>
-          <FiUserPlus /> Add Researcher
-        </button>
       </div>
 
-      {/* Add Researcher Form */}
+      <div className="table-wrapper">
+        <div className="table-container">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Specialization</th>
+                <th>Domains</th>
+                <th>Publications</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredResearchers.map(researcher => (
+                <tr key={researcher.id}>
+                  <td>
+                    {editingResearcher?.id === researcher.id ? (
+                      <input
+                        value={editingResearcher.name}
+                        onChange={(e) => setEditingResearcher({
+                          ...editingResearcher,
+                          name: e.target.value
+                        })}
+                      />
+                    ) : researcher.name}
+                  </td>
+                  <td>
+                    {editingResearcher?.id === researcher.id ? (
+                      <input
+                        value={editingResearcher.email}
+                        onChange={(e) => setEditingResearcher({
+                          ...editingResearcher,
+                          email: e.target.value
+                        })}
+                      />
+                    ) : researcher.email}
+                  </td>
+                  <td>
+                    {editingResearcher?.id === researcher.id ? (
+                      <input
+                        value={editingResearcher.specialization}
+                        onChange={(e) => setEditingResearcher({
+                          ...editingResearcher,
+                          specialization: e.target.value
+                        })}
+                      />
+                    ) : researcher.specialization}
+                  </td>
+                  <td>
+                    {editingResearcher?.id === researcher.id ? (
+                      <input
+                        value={editingResearcher.domains.join(', ')}
+                        onChange={(e) => setEditingResearcher({
+                          ...editingResearcher,
+                          domains: e.target.value.split(',').map(d => d.trim())
+                        })}
+                      />
+                    ) : researcher.domains.join(', ')}
+                  </td>
+                  <td>{researcher.publications}</td>
+                  <td className="actions">
+                    {editingResearcher?.id === researcher.id ? (
+                      <>
+                        <button className="save-button" onClick={handleSave}>
+                          <FiSave />
+                        </button>
+                        <button className="cancel-button" onClick={() => setEditingResearcher(null)}>
+                          <FiX />
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button className="edit-button" onClick={() => handleEdit(researcher)}>
+                          <FiEdit2 />
+                        </button>
+                        <button className="delete-button" onClick={() => handleDelete(researcher.id)}>
+                          <FiTrash2 />
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {showAddForm && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -130,94 +220,6 @@ function ResearcherManagement() {
           </div>
         </div>
       )}
-
-      {/* Researchers Table */}
-      <div className="table-container">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Specialization</th>
-              <th>Domains</th>
-              <th>Publications</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredResearchers.map(researcher => (
-              <tr key={researcher.id}>
-                <td>
-                  {editingResearcher?.id === researcher.id ? (
-                    <input
-                      value={editingResearcher.name}
-                      onChange={(e) => setEditingResearcher({
-                        ...editingResearcher,
-                        name: e.target.value
-                      })}
-                    />
-                  ) : researcher.name}
-                </td>
-                <td>
-                  {editingResearcher?.id === researcher.id ? (
-                    <input
-                      value={editingResearcher.email}
-                      onChange={(e) => setEditingResearcher({
-                        ...editingResearcher,
-                        email: e.target.value
-                      })}
-                    />
-                  ) : researcher.email}
-                </td>
-                <td>
-                  {editingResearcher?.id === researcher.id ? (
-                    <input
-                      value={editingResearcher.specialization}
-                      onChange={(e) => setEditingResearcher({
-                        ...editingResearcher,
-                        specialization: e.target.value
-                      })}
-                    />
-                  ) : researcher.specialization}
-                </td>
-                <td>
-                  {editingResearcher?.id === researcher.id ? (
-                    <input
-                      value={editingResearcher.domains.join(', ')}
-                      onChange={(e) => setEditingResearcher({
-                        ...editingResearcher,
-                        domains: e.target.value.split(',').map(d => d.trim())
-                      })}
-                    />
-                  ) : researcher.domains.join(', ')}
-                </td>
-                <td>{researcher.publications}</td>
-                <td className="actions">
-                  {editingResearcher?.id === researcher.id ? (
-                    <>
-                      <button className="save-button" onClick={handleSave}>
-                        <FiSave />
-                      </button>
-                      <button className="cancel-button" onClick={() => setEditingResearcher(null)}>
-                        <FiX />
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button className="edit-button" onClick={() => handleEdit(researcher)}>
-                        <FiEdit2 />
-                      </button>
-                      <button className="delete-button" onClick={() => handleDelete(researcher.id)}>
-                        <FiTrash2 />
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 }

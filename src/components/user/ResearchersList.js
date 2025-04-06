@@ -83,7 +83,7 @@ function ResearchersList() {
           </button>
           <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
             <Link to="/user" className="nav-link">Articles</Link>
-            <Link to="/researchers" className="nav-link">Researchers</Link>
+            <Link to="/researchers" className="nav-link">Moderators</Link>
             <div className="user-info">
               <Link to="/profile" className="nav-link">
                 <FiUser className="user-icon" />

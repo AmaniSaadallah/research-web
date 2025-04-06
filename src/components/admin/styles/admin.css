@@ -2,17 +2,28 @@
 .admin-dashboard {
   display: flex;
   min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
 }
 
 /* Sidebar Styles */
 .admin-sidebar {
-  width: 250px;
-  background: var(--color-navy);
+  width: 280px;
+  min-width: 280px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: linear-gradient(180deg, var(--color-navy) 0%, var(--color-violet) 100%);
   color: white;
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
+  overflow-y: auto;
+  transition: transform var(--transition-speed) ease;
+  z-index: 100;
 }
 
 .admin-logo {
@@ -23,7 +34,7 @@
 }
 
 .admin-logo span {
-  font-size: 0.9rem;
+ /* font-size: 0.9rem;*/
   opacity: 0.8;
 }
 
@@ -61,8 +72,18 @@
 /* Main Content Area */
 .admin-main {
   flex: 1;
+  margin-left: 280px;
+  width: calc(100% - 280px);
+  min-height: 100vh;
+  background: var(--color-gray-50);
+  transition: margin var(--transition-speed) ease, width var(--transition-speed) ease;
+}
+
+.admin-content {
   padding: 2rem;
-  background: var(--color-gray-100);
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .admin-header {
@@ -130,7 +151,16 @@
 }
 
 /* Table Styles */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
 .table-container {
+  min-width: 100%;
   background: var(--color-bg);
   border-radius: 0.75rem;
   box-shadow: 0 4px 6px var(--color-shadow);
@@ -156,12 +186,17 @@
   color: var(--color-text);
 }
 
-.data-table tr:last-child td {
-  border-bottom: none;
+.data-table tbody tr {
+  background-color: transparent;
 }
 
-.data-table tr:hover td {
-  background: rgba(0, 0, 0, 0.02);
+/* Remove hover styles */
+.data-table tbody tr:hover {
+  background-color: transparent;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
 }
 
 /* Action Buttons */
@@ -223,6 +258,7 @@
   align-items: center;
   z-index: 1000;
   padding: 1rem;
+  backdrop-filter: blur(4px);
 }
 
 .modal-content {
@@ -234,6 +270,7 @@
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .modal-content h2 {
@@ -255,11 +292,13 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  border-radius: 0.5rem;
 }
 
 .close-button:hover {
   color: var(--color-violet);
   transform: rotate(90deg);
+  background: var(--color-gray-100);
 }
 
 /* Form Styles */
@@ -280,15 +319,25 @@
   width: 100%;
   padding: 0.75rem 1rem;
   border: 1px solid var(--color-border);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   font-size: 1rem;
-  background: var(--color-bg);
+  background: white;
   color: var(--color-text);
+  transition: all var(--transition-speed) ease;
+  box-sizing: border-box;
 }
 
 .form-group textarea {
   min-height: 100px;
   resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-violet);
+  box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
 }
 
 .submit-button {
@@ -322,7 +371,7 @@
   font-size: 0.875rem;
   cursor: pointer;
   border: none;
-  transition: all 0.2s ease;
+  transition: all var(--transition-speed) ease;
 }
 
 .status-toggle.active {
@@ -342,6 +391,8 @@
   border-radius: 1rem;
   font-size: 0.875rem;
   font-weight: 500;
+  background: #e5e7eb;
+  color: #374151;
 }
 
 .role-badge.researcher {
@@ -395,18 +446,88 @@
   transform: translateY(-50%);
   color: var(--color-text);
   opacity: 0.5;
+  pointer-events: none;
 }
 
 .domain-filter select {
   width: 100%;
-  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  min-width: 200px;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
   border: 1px solid var(--color-border);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   font-size: 1rem;
-  background: var(--color-bg);
+  background: white;
   color: var(--color-text);
   appearance: none;
   cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Domain Badges */
+.domain-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: var(--color-violet);
+  color: white;
+}
+
+/* No Results Message */
+.no-results {
+  text-align: center;
+  padding: 2rem !important;
+  color: var(--color-text);
+  font-style: italic;
+}
+
+/* Section Styles */
+.section-container {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+
+/* Action Buttons */
+.approve-button,
+.reject-button,
+.view-details-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.approve-button {
+  background: #059669;
+  color: white;
+}
+
+.reject-button {
+  background: #dc2626;
+  color: white;
+}
+
+.view-details-button {
+  background: var(--color-navy);
+  color: white;
+}
+
+.approve-button:hover,
+.reject-button:hover,
+.view-details-button:hover {
+  transform: translateY(-2px);
 }
 
 /* Dark Mode Support */
@@ -424,16 +545,32 @@
     background: rgba(255, 255, 255, 0.05);
   }
 
+  .table-wrapper,
   .table-container {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-gray-800);
+    border: none !important;
+    box-shadow: none;
+  }
+
+  .data-table tbody tr {
+    background-color: var(--color-gray-800) !important;
+  }
+
+  /* Remove hover styles in dark mode */
+  .data-table tbody tr:hover {
+    background-color: var(--color-gray-800) !important;
   }
 
   .data-table th {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-gray-900);
+    color: white;
+    border-bottom-color: var(--color-gray-700);
   }
 
-  .data-table tr:hover td {
-    background: rgba(255, 255, 255, 0.02);
+  .data-table td,
+  .data-table th {
+    border-color: var(--color-gray-700) !important;
+    background-color: inherit;
   }
 
   .modal-content {
@@ -442,10 +579,254 @@
 
   .form-group input,
   .form-group select,
-  .form-group textarea {
-    background: rgba(255, 255, 255, 0.05);
+  .form-group textarea,
+  .domain-filter select {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    color: white;
+  }
+
+  .close-button {
+    color: white;
+  }
+
+  .close-button:hover {
+    background: var(--color-gray-700);
+  }
+
+  .domain-badge {
+    background: var(--color-violet);
+    color: white;
+  }
+
+  .no-results {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .management-component {
+    background: var(--color-gray-900);
+  }
+
+  .management-header {
+    background: var(--color-gray-800);
+  }
+
+  .page-title {
+    color: white;
+  }
+
+  .search-box input,
+  .domain-filter select {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    color: white;
+  }
+
+  .search-icon,
+  .filter-icon {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .table-wrapper {
+    background: var(--color-gray-800);
+  }
+
+  .table-container {
+    background: var(--color-gray-800);
     border-color: var(--color-gray-700);
   }
+
+  .data-table th {
+    background: var(--color-gray-900);
+    color: white;
+    border-bottom-color: var(--color-gray-700);
+  }
+
+  .data-table td {
+    color: white;
+    border-bottom-color: var(--color-gray-700);
+  }
+
+  .data-table tr {
+    background-color: var(--color-gray-800);
+  }
+
+  .data-table tr:hover {
+    background-color: var(--color-gray-700);
+  }
+
+  .data-table td {
+    background-color: inherit;
+  }
+
+  .modal-overlay {
+    background: rgba(0, 0, 0, 0.75);
+  }
+
+  .modal-content {
+    background: var(--color-gray-800);
+    color: white;
+  }
+
+  .form-group label {
+    color: white;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    color: white;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--color-violet);
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.2);
+  }
+
+  .close-button {
+    color: white;
+  }
+
+  .close-button:hover {
+    background: var(--color-gray-700);
+    color: white;
+  }
+
+  .domain-badge {
+    background: var(--color-violet);
+    color: white;
+  }
+
+  .author-checkbox,
+  .form-group label {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .status-toggle {
+    border: 1px solid var(--color-gray-700);
+  }
+
+  .role-badge {
+    background: var(--color-gray-700);
+    color: white;
+  }
+
+  .role-badge.researcher {
+    background: #1d4ed8;
+  }
+
+  .role-badge.admin {
+    background: #6d28d9;
+  }
+
+  .role-badge.moderator {
+    background: #047857;
+  }
+
+  .no-results {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .table-wrapper .data-table tbody tr {
+    background-color: var(--color-gray-800);
+  }
+
+  .table-wrapper .data-table tbody tr:hover {
+    background-color: var(--color-gray-700) !important;
+  }
+
+  .table-wrapper .data-table td {
+    background-color: transparent;
+  }
+
+  /* Ensure no hover effects in tables */
+  .data-table tr,
+  .data-table tr:hover,
+  .data-table tbody tr,
+  .data-table tbody tr:hover,
+  .table-wrapper .data-table tbody tr,
+  .table-wrapper .data-table tbody tr:hover {
+    background-color: var(--color-gray-800) !important;
+  }
+
+  .section-title {
+    color: white;
+  }
+
+  .view-details-button:hover {
+    background: var(--color-violet);
+  }
+
+  .detail-group {
+    border-color: var(--color-gray-700);
+  }
+
+  .detail-group h3,
+  .detail-group p,
+  .detail-group strong {
+    color: white;
+  }
+
+  .details-actions {
+    border-color: var(--color-gray-700);
+  }
+}
+
+/* Details Modal Styles */
+.details-modal {
+  max-width: 800px;
+}
+
+.details-content {
+  margin-top: 1.5rem;
+}
+
+.detail-group {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detail-group:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.detail-group h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+
+.detail-group p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.detail-group strong {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.details-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.details-actions button {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
 }
 
 /* Responsive Design */
@@ -455,12 +836,21 @@
   }
 
   .admin-sidebar {
+    transform: translateX(-100%);
     width: 100%;
-    padding: 1rem;
+    max-width: 320px;
+  }
+
+  .admin-sidebar.active {
+    transform: translateX(0);
   }
 
   .admin-main {
     margin-left: 0;
+    width: 100%;
+  }
+
+  .admin-content {
     padding: 1rem;
   }
 
@@ -480,6 +870,12 @@
 
   .modal-content {
     max-width: 90%;
+  }
+
+  .table-wrapper {
+    margin: 0 -1rem;
+    width: calc(100% + 2rem);
+    border-radius: 0;
   }
 }
 
@@ -501,6 +897,46 @@
 
   .nav-item {
     width: auto;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea,
+  .domain-filter select {
+    font-size: 0.875rem;
+    padding: 0.625rem 0.875rem;
+  }
+
+  .domain-filter select {
+    min-width: 100%;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .status-toggle,
+  .role-badge {
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+  }
+
+  .details-modal {
+    max-width: 95%;
+    margin: 1rem;
+  }
+
+  .details-actions {
+    flex-direction: column;
+  }
+
+  .detail-group h3 {
+    font-size: 1rem;
+  }
+
+  .detail-group p {
+    font-size: 0.9rem;
   }
 }
 
