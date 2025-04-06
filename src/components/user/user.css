@@ -665,7 +665,6 @@
   .search-title {
     font-size: 2rem;
     margin-bottom: 2rem;
-<<<<<<< HEAD
   }
 
   .search-form {
@@ -679,13 +678,10 @@
 
   .filter-container {
     flex-direction: column;
-=======
->>>>>>> 30c164c768b5a93206e5e2043d6a1f88c1af9155
   }
 
   .search-select {
     width: 100%;
-<<<<<<< HEAD
     padding: 1rem;
     font-size: 1rem;
   }
@@ -694,10 +690,6 @@
     width: 100%;
     padding: 1rem;
     justify-content: center;
-=======
-    min-width: 0;
-    padding: 1rem;
->>>>>>> 30c164c768b5a93206e5e2043d6a1f88c1af9155
   }
 
   .articles-grid {
